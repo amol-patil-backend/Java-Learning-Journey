@@ -1,0 +1,59 @@
+package Java_Practice;
+
+import java.util.Scanner;
+
+public class Demo {
+
+    // 1. final keyword added - variables are now true constants
+    public static final int PENSION_AGE = 58;
+    public static final int PENSION_TOTAL_SERVICE = 10;
+
+    // 2. DRY Principle: One single robust method to get ANY integer input
+    public static int getValidIntegerInput(Scanner sc, String promptMessage) {
+        int value;
+        while (true) { // 3. Retry loop: Ask until user enters valid correct data
+            System.out.print(promptMessage);
+
+            if (sc.hasNextInt()) {
+                value = sc.nextInt();
+                sc.nextLine(); // clear buffer
+
+                if (value >= 0) {
+                    return value; // Correct input, exit the loop
+                } else {
+                    System.out.println("Error: Please enter a positive number!\n");
+                }
+            } else {
+                System.out.println("Error: Invalid input! Please enter numbers only.\n");
+                sc.next(); // Clear the bad input like "abc" from scanner
+            }
+        }
+    }
+
+    public static void checkPensionEligible(int totalService, int userAge) {
+        System.out.println("\n--- Pension Eligibility Result ---");
+
+        if (totalService >= PENSION_TOTAL_SERVICE && userAge >= PENSION_AGE) {
+            System.out.println("Success: You are eligible for the monthly pension scheme.");
+        } else {
+            System.out.println("Sorry: You are not eligible for the monthly pension scheme.");
+        }
+
+        // 4. Duplicate print lines moved outside if-else
+        System.out.println("Recorded Age : " + userAge);
+        System.out.println("Recorded Service : " + totalService + " years\n");
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Passed different messages to the SAME method
+        int totalService = getValidIntegerInput(sc, "Enter total service (in years): ");
+        int userAge = getValidIntegerInput(sc, "Enter your age: ");
+
+        checkPensionEligible(totalService, userAge);
+
+        // 5. Memory cleanup
+        sc.close();
+    }
+}
