@@ -1,0 +1,101 @@
+package Java_Practice;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Demo {
+
+    public static int getArraySize(Scanner sc) {
+
+        int arraySize;
+
+        while (true) {
+            System.out.print("\nEnter Array Size : ");
+
+            if (!sc.hasNextInt()) {
+                System.out.println("Array size contain only integer value !");
+                sc.next();
+                continue;
+            }
+
+            arraySize = sc.nextInt();
+            sc.nextLine();
+
+            if (arraySize <= 0) {
+                System.out.println("array size cannot contains negative and zero values !");
+                continue;
+            } else if ((arraySize < 2)) {
+                System.out.println("Enter minimum array size above 1");
+                continue;
+            }
+
+            break;
+        }
+
+        return arraySize;
+
+    }
+
+
+    public static int[] getArrayElementsValues(int arraySize, Scanner sc) {
+
+        int arr[] = new int[arraySize];
+
+        for (int i = 0; i < arr.length; i++) {
+
+            while (true) {
+                System.out.print("\nEnter array element value " + (i + 1) + " :");
+
+                if (!sc.hasNextInt()) {
+                    System.out.println("Array elements contains only integer valuse !");
+                    sc.next();
+                    continue;
+                }
+
+                arr[i] = sc.nextInt();
+                sc.nextLine();
+
+                if (arr[i] <= 0) {
+                    System.out.println("Array elements contains only postitive values ! ");
+                    continue;
+
+                }
+                break;
+            }
+
+        }
+
+        return arr;
+
+    }
+
+    public static int findLargest(int arr[]) {
+
+        int largestNo = arr[0];
+
+        for (int i = 1; i < arr.length; i++) {
+
+            if (largestNo < arr[i]) {
+                largestNo = arr[i];
+            }
+        }
+        return largestNo;
+    }
+
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int arraySize = Demo.getArraySize(sc);
+
+        int arr[] = Demo.getArrayElementsValues(arraySize, sc);
+
+        int leargestNo = Demo.findLargest(arr);
+
+        System.out.println("\nLergest No Of Array : " + leargestNo);
+
+
+    }
+}
+
